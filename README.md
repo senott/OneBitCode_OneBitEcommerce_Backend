@@ -1,21 +1,21 @@
 # README
 One Bit Code Bootcamp e-commerce backend application.
 
-* Ruby version /
+* Ruby version \
   2.7.1
 
-* Rails version /
+* Rails version \
   6.0.3.4
 
-* System dependencies
+* System dependencies \
   `$ docker start onebitcode_postgres`
 
 * Configuration
 
-* Database creation
+* Database creation \
   `$ rake db:create`
 
-* Database initialization
+* Database initialization \
   `$ rake db:migrate`
 
 * How to run the test suite
