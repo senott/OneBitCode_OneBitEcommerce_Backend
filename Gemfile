@@ -42,3 +42,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # project specific gems
 gem 'devise_token_auth', '~> 1.1', '>= 1.1.4'
+gem 'inky-rb', '~> 1.3', '>= 1.3.8.0', require: 'inky'
+gem 'premailer-rails', '~> 1.11', '>= 1.11.1'
+gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
