@@ -35,6 +35,8 @@ module OneBitEcommerce
     config.api_only = true
 
     config.i18n.default_locale = :'pt-BR'
-    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb, yml}')] 
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb, yml}')]
+
+    config.autoload_paths += Dir[Rails.root.join('/app/validators/**/*.rb')]
   end
 end
