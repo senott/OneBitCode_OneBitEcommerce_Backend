@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin::V1::Categories', type: :request do
+RSpec.describe 'Admin::V1::Categories as :admin', type: :request do
   let(:user) { create(:user) }
   let(:url) { '/admin/v1/categories' }
 
@@ -122,7 +122,7 @@ RSpec.describe 'Admin::V1::Categories', type: :request do
         end.to change(Category, :count).by(-1)
       end
 
-      it 'should return status code 200' do
+      it 'should return status code 204' do
         delete url, headers: auth_header(user)
         expect(response.status).to eq(204)
       end
