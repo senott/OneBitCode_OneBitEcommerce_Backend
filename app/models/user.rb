@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :profile, presence: true
+
+  include NameSearchable
+  include Paginatable
 end
