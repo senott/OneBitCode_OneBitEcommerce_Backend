@@ -5,4 +5,6 @@ class Coupon < ApplicationRecord
   validates :status, presence: true
   validates :due_date, presence: true, future_date: true
   validates :discount_value, presence: true, numericality: { greater_than: 0 }
+
+  include Paginatable
 end
