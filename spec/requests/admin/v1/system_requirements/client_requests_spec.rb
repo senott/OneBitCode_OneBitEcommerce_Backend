@@ -26,7 +26,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :client', type: :request do
     let(:new_name) { 'New System Requirement' }
     let(:system_requirement_params) { { system_requirement: { name: new_name } }.to_json }
 
-    before(:each) { patch url, headers: auth_header(user), params: system_requirement_params  }
+    before(:each) { patch url, headers: auth_header(user), params: system_requirement_params }
 
     include_examples 'forbidden access'
   end
