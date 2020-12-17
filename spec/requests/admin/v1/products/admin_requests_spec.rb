@@ -6,7 +6,7 @@ RSpec.describe 'Admin V1 Products as :admin', type: :request do
   describe 'GET /products' do
     let(:url) { '/admin/v1/products' }
     let(:categories) { create_list(:category, 2) }
-    let!(:products) { create_list(:product, 10, category: categories) }
+    let!(:products) { create_list(:product, 10, categories: categories) }
 
     before(:each) { get url, headers: auth_header(user) }
 
@@ -258,7 +258,7 @@ RSpec.describe 'Admin V1 Products as :admin', type: :request do
     it 'should return requested product' do
       expected_product = build_game_product_json(product)
 
-      expect(body_json).to eq(expected_product)
+      expect(body_json['product']).to eq(expected_product)
     end
 
     it 'should return success status' do
@@ -267,8 +267,8 @@ RSpec.describe 'Admin V1 Products as :admin', type: :request do
   end
 
   describe 'PATCH /products/:id' do
-    let(:old_categories) { create_list(:categories, 2) }
-    let(:new_categories) { create_list(:categories, 2) }
+    let(:old_categories) { create_list(:category, 2) }
+    let(:new_categories) { create_list(:category, 2) }
     let(:product) { create(:product, categories: old_categories) }
     let(:system_requirement) { create(:system_requirement) }
     let(:url) { "/admin/v1/products/#{product.id}" }
