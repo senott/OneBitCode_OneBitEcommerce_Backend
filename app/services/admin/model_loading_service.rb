@@ -34,7 +34,7 @@ module Admin
       total_pages = (total_filtered / @params[:length].to_f).ceil
 
       @pagination.merge!(
-        page: params[:page],
+        page: @params[:page],
         length: @records.count,
         total: total_filtered,
         total_pages: total_pages
