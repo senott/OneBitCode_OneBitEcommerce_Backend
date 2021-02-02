@@ -6,30 +6,39 @@ module Admin
       @searchable_model = searchable_model
       @params = params || {}
       @records = []
-      @pagination = {
-        page: params[:page].to_i,
-        length: params[:length].to_i
-      }
+      @pagination = {}
     end
 
     def call
-      fix_pagination_values
+      set_pagination_values
 
-      filtered = @searchable_model.search_by_name(@params.dig(:search, :name))
+      searched = @searchable_model.search_by_name(@params.dig(:search, :name))
 
-      @records = filtered.order(@params[:order].to_h)
-                         .paginate(@pagination[:page], @pagination[:length])
+      @records = searched.order(@params[:order].to_h)
+                         .paginate(@params[:page], @params[:length])
 
-      total_pages = (filtered.count / @pagination[:length].to_f).ceil
-
-      @pagination.merge!(total: filtered.count, total_pages: total_pages)
+      set_pagination_attributes(searched.count)
     end
 
     private
 
-    def fix_pagination_values
-      @pagination[:page] = @searchable_model.model::DEFAULT_PAGE if @pagination[:page] <= 0
-      @pagination[:length] = @searchable_model.model::MAX_PER_PAGE if @pagination[:length] <= 0
+    def set_pagination_values
+      @params[:page] = @params[:page].to_i
+      @params[:page] = @searchable_model.model::DEFAULT_PAGE if @params[:page] <= 0
+
+      @params[:length] = @params[:length].to_i
+      @params[:length] = @searchable_model.model::MAX_PER_PAGE if @params[:length] <= 0
+    end
+
+    def set_pagination_attributes(total_filtered)
+      total_pages = (total_filtered / @params[:length].to_f).ceil
+
+      @pagination.merge!(
+        page: params[:page],
+        length: @records.count,
+        total: total_filtered,
+        total_pages: total_pages
+      )
     end
   end
 end
