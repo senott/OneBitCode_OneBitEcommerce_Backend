@@ -14,6 +14,8 @@ class Product < ApplicationRecord
   validates :status, presence: true
   enum status: { available: 1, unavailable: 2 }
 
+  validates :featured, presence: true
+
   include NameSearchable
   include Paginatable
 end

@@ -21,6 +21,15 @@ RSpec.describe Product, type: :model do
   it { is_expected.to validate_presence_of(:status) }
   it { is_expected.to define_enum_for(:status).with_values({ available: 1, unavailable: 2 }) }
 
+  it { is_expected.to validate_presence_of(:featured) }
+
   it_behaves_like 'name searchable concern', :product
   it_behaves_like 'paginatable concern', :product
+
+  it 'should create as unfeatured by default' do
+    subject.featured = nil
+    subject.save(validate: false)
+
+    expect(subject.featured).to be_falsey
+  end
 end
