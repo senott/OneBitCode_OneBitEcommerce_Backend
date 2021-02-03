@@ -9,7 +9,7 @@ RSpec.describe 'Admin::V1::Licenses as :admin', type: :request do
 
     it 'should return all licenses' do
       get url, headers: auth_header(user)
-      expect(body_json['licenses']).to contain_exactly(*licenses.as_json(only: %i[id key]))
+      expect(body_json['licenses']).to contain_exactly(*licenses.as_json(only: %i[id key platform status]))
     end
 
     it 'returns status code 200' do
@@ -31,7 +31,7 @@ RSpec.describe 'Admin::V1::Licenses as :admin', type: :request do
 
       it 'should return the license created' do
         post url, headers: auth_header(user), params: license_params
-        expected_license = License.last.as_json(only: %i[id key])
+        expected_license = License.last.as_json(only: %i[id key platform status])
         expect(body_json['license']).to eq(expected_license)
       end
 
@@ -80,7 +80,7 @@ RSpec.describe 'Admin::V1::Licenses as :admin', type: :request do
       it 'should return updated license' do
         patch url, headers: auth_header(user), params: license_params
         license.reload
-        expected_license = license.as_json(only: %i[id key])
+        expected_license = license.as_json(only: %i[id key status platform])
         expect(body_json['license']).to eq(expected_license)
       end
 

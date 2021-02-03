@@ -8,7 +8,7 @@ if Rails.env.development? || Rails.env.test?
       include FactoryBot::Syntax::Methods
 
       15.times do
-        profile = [:admin, :client].sample
+        profile = %i[admin client].sample
         create(:user, profile: profile)
       end
 
@@ -38,6 +38,14 @@ if Rails.env.development? || Rails.env.test?
         game = create(:game, system_requirement: system_requirements.sample)
 
         create(:product, name: game_name, status: status, category_ids: game_categories_ids, productable: game)
+      end
+
+      50.times do
+        game = Game.all[0..5].sample
+        status = %i[available in_use inactive].sample
+        platform = %i[steam battle_net origin].sample
+
+        create(:license, status: status, platform: platform, game: game)
       end
     end
   end

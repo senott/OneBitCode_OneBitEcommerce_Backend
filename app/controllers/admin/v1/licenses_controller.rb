@@ -29,7 +29,7 @@ module Admin
       def license_params
         return {} unless params.key?('license')
 
-        params.require(:license).permit(:id, :key, :game_id)
+        params.require(:license).permit(:id, :key, :game_id, :status, :platform)
       end
 
       def load_license
